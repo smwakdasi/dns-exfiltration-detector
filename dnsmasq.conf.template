@@ -1,0 +1,19 @@
+# /etc/dnsmasq.conf on the Ubuntu (monitor/resolver) VM
+# Only listen on the host-only interface facing the lab network
+interface=enp0s8
+bind-interfaces
+
+# Forward normal queries upstream via a public resolver (reached through Ubuntu's NAT adapter)
+server=8.8.8.8
+server=1.1.1.1
+
+# Redirect the lab's fake attacker domain straight to the Kali VM (simulates attacker's
+# authoritative DNS server, fully contained inside the isolated lab network)
+server=/tunnel.lab/192.168.56.20
+
+# Don't read /etc/resolv.conf for upstream servers (avoids loops)
+no-resolv
+
+# Basic logging, useful for debugging during setup
+log-queries
+log-facility=/var/log/dnsmasq.log
