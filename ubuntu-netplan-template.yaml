@@ -1,0 +1,9 @@
+# /etc/netplan/*.yaml on the Ubuntu (monitor) VM
+# Replace 'enp0s8' with your actual host-only interface name (check with: ip addr)
+network:
+  version: 2
+  ethernets:
+    enp0s3:          # NAT adapter (Adapter 1) - leave on DHCP for internet access
+      dhcp4: true
+    enp0s8:          # Host-only adapter (Adapter 2) - static IP for the lab network
+      addresses: [192.168.56.10/24]
